@@ -761,6 +761,48 @@
 .contact-details a:hover {
   text-decoration: underline;
 }
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px){
+
+  .hero{
+    flex-direction: column;
+    text-align: left;
+    padding: 40px 20px;
+    gap: 30px;
+  }
+
+  .hero-video{
+    width: 100%;
+    height: 220px;
+    margin: 0;
+  }
+
+  .hero-video iframe{
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero h1{
+    font-size: 38px;
+    line-height: 1.2;
+  }
+
+  .hero p{
+    font-size: 15px;
+  }
+
+  .hero-buttons{
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero-buttons a{
+    width: 100%;
+    text-align: center;
+  }
+}
 </style>
 </head>
 <body>
@@ -1226,6 +1268,40 @@
 .nav-quiz:hover {
   background: var(--green-mid);
   color: white;
+}
+
+/* NAVBAR RESPONSIVE FIX */
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.nav-actions{
+  display:flex;
+  gap:12px;
+}
+
+@media (max-width:768px){
+
+  .navbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .nav-actions{
+    width:100%;
+    justify-content:flex-start;
+  }
+
+  .nav-actions a{
+    font-size:14px;
+    padding:8px 14px;
+  }
+
 }
   </style>
 
