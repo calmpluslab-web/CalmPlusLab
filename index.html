@@ -727,6 +727,61 @@
 .contact-details a:hover {
   text-decoration: underline;
 }
+
+/* ===== HERO FIX ===== */
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  margin-top: 40px;
+}
+
+.hero-left {
+  flex: 1.2;
+  max-width: 600px;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-right iframe {
+  width: 100%;
+  max-width: 480px;
+  height: 270px;
+  border-radius: 16px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .hero-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-right {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-right iframe {
+    max-width: 100%;
+    height: 220px;
+  }
+}
 </style>
 </head>
 <body>
@@ -747,6 +802,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+
   <svg class="hero-leaf-bg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="hlg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -759,34 +815,45 @@
   </svg>
 
   <div class="hero-content">
+
     <div class="hero-tag">
       <div class="hero-tag-dot"></div>
       A safe space for real conversations
     </div>
 
-    <h1>
-      Because<br><em>stress matters.</em><br>And so do you.
-    </h1>
+    <!-- 🔥 ROW START -->
+    <div class="hero-row">
 
-    <p class="hero-sub">
-      Not the Instagram version of wellness. The real one — where your hair falls out, your hands stay sweaty, and you stop recognising yourself. We've been there. And we built Calm+Lab from that place.
-    </p>
+      <!-- LEFT SIDE -->
+      <div class="hero-left">
+        <h1>
+          Because<br><em>stress matters.</em><br>And so do you.
+        </h1>
 
-     <div class="hero-actions">
+        <p class="hero-sub">
+          Not the Instagram version of wellness. The real one — where your hair falls out, your hands stay sweaty, and you stop recognising yourself. We've been there. And we built Calm+Lab from that place.
+        </p>
 
-     <a href="#register" class="btn-primary">
-     Join Calm+Lab
-     </a>
+        <div class="hero-actions">
+          <a href="#register" class="btn-primary">Join Calm+Lab</a>
+          <a href="#story" class="btn-ghost">Read our story</a>
+          <a href="sessions.html" target="_blank" class="btn-primary">How sessions work</a>
+        </div>
+      </div>
 
-     <a href="#story" class="btn-ghost">
-     Read our story
-     </a>
+      <!-- RIGHT SIDE -->
+      <div class="hero-right">
+        <iframe 
+          src="https://www.youtube.com/embed/ZKKPit5Ttq8?si=0EWkByMePWAfmNd7"
+          title="YouTube video player"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
 
-     <a href="sessions.html" target="_blank" class="btn-primary">
-     How sessions work
-     </a>
+    </div>
+    <!-- 🔥 ROW END -->
 
-</div>
   </div>
 </section>
 
