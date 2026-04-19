@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calm+Lab Stress Assessment</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f0f7f4;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    color: #1a2e25;
+  }
+
+  .quiz-container {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 680px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(15, 110, 86, 0.10);
+  }
+
+  .quiz-header {
+    background: linear-gradient(135deg, #0f6e56 0%, #1d9e75 100%);
+    padding: 2.5rem 2.5rem 2rem;
+    color: #ffffff;
+  }
+
+  .quiz-header .logo {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 0.75rem;
+  }
+
+  .quiz-header h1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .quiz-header p {
+    font-size: 14px;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  .progress-wrap {
+    padding: 1.25rem 2.5rem 0;
+    border-bottom: 1px solid #e8f4f0;
+  }
+
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #5f9e87;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .progress-bar-bg {
+    height: 5px;
+    background: #e1f5ee;
+    border-radius: 99px;
+    margin-bottom: 1.25rem;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: #1d9e75;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  .question-area {
+    padding: 2rem 2.5rem;
+    min-height: 320px;
+  }
+
+  .question-number {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #1d9e75;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .question-text {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #1a2e25;
+    line-height: 1.55;
+    margin-bottom: 1.75rem;
+  }
+
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    background: #f8fdfb;
+    border: 1.5px solid #cce8dd;
+    border-radius: 12px;
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: #1a2e25;
+    line-height: 1.5;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .option-btn:hover {
+    background: #e1f5ee;
+    border-color: #5dcaa5;
+    color: #0f6e56;
+  }
+
+  .option-btn.selected {
+    background: #e1f5ee;
+    border-color: #1d9e75;
+    color: #0f6e56;
+    font-weight: 500;
+  }
+
+  .option-btn.selected .opt-dot {
+    background: #1d9e75;
+    border-color: #1d9e75;
+  }
+
+  .option-btn.selected .opt-dot::after {
+    opacity: 1;
+  }
+
+  .opt-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #aed6c5;
+    flex-shrink: 0;
+    position: relative;
+    background: #fff;
+  }
+
+  .opt-dot::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+  }
+
+  .nav-area {
+    padding: 0 2.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-back {
+    background: none;
+    border: 1.5px solid #cce8dd;
+    border-radius: 10px;
+    padding: 0.65rem 1.25rem;
+    font-size: 14px;
+    color: #5f9e87;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-back:hover { background: #f0f7f4; }
+  .btn-back:disabled { opacity: 0.3; cursor: default; }
+
+  .btn-next {
+    background: #1d9e75;
+    border: none;
+    border-radius: 10px;
+    padding: 0.65rem 1.75rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-left: auto;
+  }
+
+  .btn-next:hover { background: #0f6e56; }
+  .btn-next:disabled { opacity: 0.4; cursor: default; }
+
+  .result-area {
+    padding: 2rem 2.5rem 2.5rem;
+    text-align: center;
+    display: none;
+  }
+
+  .result-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 32px;
+  }
+
+  .result-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .result-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a2e25;
+    margin-bottom: 0.75rem;
+  }
+
+  .result-desc {
+    font-size: 14px;
+    color: #4a7060;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 1.75rem;
+  }
+
+  .result-score-bar {
+    background: #e1f5ee;
+    border-radius: 99px;
+    height: 8px;
+    margin: 0 auto 0.5rem;
+    max-width: 320px;
+    overflow: hidden;
+  }
+
+  .result-score-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s ease 0.3s;
+  }
+
+  .score-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #9dbcb0;
+    max-width: 320px;
+    margin: 0 auto 2rem;
+  }
+
+  .btn-retake {
+    background: none;
+    border: 1.5px solid #1d9e75;
+    border-radius: 10px;
+    padding: 0.65rem 1.5rem;
+    font-size: 14px;
+    color: #1d9e75;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-right: 8px;
+  }
+
+  .btn-retake:hover { background: #e1f5ee; }
+
+  .btn-cta {
+    background: #1d9e75;
+    border: none;
+    border-radius: 10px;
+    padding: 0.65rem 1.5rem;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.15s;
+  }
+
+  .btn-cta:hover { background: #0f6e56; }
+
+  @media (max-width: 480px) {
+    .quiz-header { padding: 2rem 1.5rem 1.5rem; }
+    .progress-wrap { padding: 1rem 1.5rem 0; }
+    .question-area { padding: 1.5rem; min-height: auto; }
+    .nav-area { padding: 0 1.5rem 1.5rem; }
+    .result-area { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <div class="quiz-header">
+    <div class="logo">Calm+Lab</div>
+    <h1>How stressed are you really?</h1>
+    <p>Answer 10 quick questions to understand your current stress level and get personalised guidance.</p>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-top">
+      <span id="progressText">Question 1 of 10</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="question-area" id="questionArea">
+    <div class="question-number" id="qNum">Question 1</div>
+    <div class="question-text" id="qText"></div>
+    <div class="options-list" id="optionsList"></div>
+  </div>
+
+  <div class="nav-area" id="navArea">
+    <button class="btn-back" id="btnBack" onclick="goBack()" disabled>← Back</button>
+    <button class="btn-next" id="btnNext" onclick="goNext()" disabled>Next →</button>
+  </div>
+
+  <div class="result-area" id="resultArea">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-label" id="resultLabel"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <div class="result-score-bar">
+      <div class="result-score-fill" id="scoreFill"></div>
+    </div>
+    <div class="score-labels">
+      <span>Low stress</span>
+      <span>Moderate</span>
+      <span>High stress</span>
+    </div>
+    <div>
+      <button class="btn-retake" onclick="retake()">Retake quiz</button>
+      <a class="btn-cta" href="https://calmpluslab-web.github.io/CalmPlusLab/" target="_blank">Explore Calm+Lab →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "How often do you feel overwhelmed by your responsibilities?",
+    options: [
+      { label: "Rarely or never", score: 1 },
+      { label: "Once in a while", score: 2 },
+      { label: "Several times a week", score: 3 },
+      { label: "Almost every day", score: 4 }
+    ]
+  },
+  {
+    text: "How well are you sleeping on most nights?",
+    options: [
+      { label: "Very well — I wake up feeling rested", score: 1 },
+      { label: "Fairly well, with occasional trouble", score: 2 },
+      { label: "Poorly — I often wake up tired", score: 3 },
+      { label: "Very poorly — sleep feels impossible lately", score: 4 }
+    ]
+  },
+  {
+    text: "How often do you experience physical symptoms like headaches, muscle tension, or a tight chest?",
+    options: [
+      { label: "Rarely — I feel physically at ease", score: 1 },
+      { label: "Occasionally", score: 2 },
+      { label: "Fairly often — it's becoming a pattern", score: 3 },
+      { label: "Almost daily", score: 4 }
+    ]
+  },
+  {
+    text: "How easy is it for you to concentrate on tasks or work?",
+    options: [
+      { label: "Very easy — my focus is sharp", score: 1 },
+      { label: "Mostly fine, but I get distracted sometimes", score: 2 },
+      { label: "Difficult — my mind wanders frequently", score: 3 },
+      { label: "Very difficult — I can barely focus at all", score: 4 }
+    ]
+  },
+  {
+    text: "How do you feel about the time you have for yourself each day?",
+    options: [
+      { label: "I have plenty of time for myself", score: 1 },
+      { label: "I manage to find some personal time", score: 2 },
+      { label: "I rarely get time for myself", score: 3 },
+      { label: "I feel completely depleted with no downtime", score: 4 }
+    ]
+  },
+  {
+    text: "How often do you feel irritable or short-tempered lately?",
+    options: [
+      { label: "Rarely — I feel calm and patient", score: 1 },
+      { label: "Occasionally, but not often", score: 2 },
+      { label: "Often — small things easily bother me", score: 3 },
+      { label: "Almost constantly", score: 4 }
+    ]
+  },
+  {
+    text: "How connected do you feel to people around you (family, friends, colleagues)?",
+    options: [
+      { label: "Very connected and supported", score: 1 },
+      { label: "Mostly connected", score: 2 },
+      { label: "Somewhat isolated", score: 3 },
+      { label: "Quite lonely or disconnected", score: 4 }
+    ]
+  },
+  {
+    text: "How often do you engage in activities that help you relax (exercise, hobbies, meditation, etc.)?",
+    options: [
+      { label: "Regularly — it's part of my routine", score: 1 },
+      { label: "Sometimes, when I remember to", score: 2 },
+      { label: "Rarely — I don't seem to find the time", score: 3 },
+      { label: "Almost never", score: 4 }
+    ]
+  },
+  {
+    text: "How would you describe your overall mood over the past two weeks?",
+    options: [
+      { label: "Mostly positive and balanced", score: 1 },
+      { label: "Up and down, but generally okay", score: 2 },
+      { label: "Mostly low or anxious", score: 3 },
+      { label: "Persistent heaviness or hopelessness", score: 4 }
+    ]
+  },
+  {
+    text: "When you imagine the next week ahead, how do you feel?",
+    options: [
+      { label: "Positive — I'm looking forward to it", score: 1 },
+      { label: "Neutral — just getting through it", score: 2 },
+      { label: "A bit dread — it feels like a lot", score: 3 },
+      { label: "Overwhelmed — I wish I could escape", score: 4 }
+    ]
+  }
+];
+
+const results = [
+  {
+    min: 10, max: 17,
+    icon: "🌿",
+    iconBg: "#e1f5ee", iconColor: "#0f6e56",
+    label: "Low stress",
+    labelColor: "#1d9e75",
+    title: "You're doing really well",
+    desc: "Your stress levels appear to be low and well-managed. You likely have healthy routines and a good support system. Keep nurturing your habits — they're working. Consider sharing what helps you with those around you.",
+    barColor: "#5dcaa5",
+    barPct: "20%"
+  },
+  {
+    min: 18, max: 25,
+    icon: "🌱",
+    iconBg: "#faeeda", iconColor: "#854f0b",
+    label: "Mild stress",
+    labelColor: "#ba7517",
+    title: "A few areas to watch",
+    desc: "You're managing reasonably well, but some parts of your life may be starting to strain your reserves. A little more attention to sleep, relaxation, and connection could make a big difference before stress builds up.",
+    barColor: "#ef9f27",
+    barPct: "42%"
+  },
+  {
+    min: 26, max: 33,
+    icon: "🌊",
+    iconBg: "#faece7", iconColor: "#993c1d",
+    label: "Moderate stress",
+    labelColor: "#d85a30",
+    title: "Stress is weighing on you",
+    desc: "Your responses suggest you're carrying a significant amount of stress. This is common, but it deserves your attention. Small consistent steps — better boundaries, support, or professional guidance — can meaningfully reduce your load.",
+    barColor: "#d85a30",
+    barPct: "65%"
+  },
+  {
+    min: 34, max: 40,
+    icon: "🫶",
+    iconBg: "#fbeaf0", iconColor: "#993556",
+    label: "High stress",
+    labelColor: "#d4537e",
+    title: "You need support right now",
+    desc: "Your stress levels are high, and we want you to know — it's okay to ask for help. What you're feeling is real and valid. Please consider reaching out to a mental health professional or someone you trust. You don't have to carry this alone.",
+    barColor: "#d4537e",
+    barPct: "90%"
+  }
+];
+
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+function render() {
+  const q = questions[current];
+  document.getElementById('qNum').textContent = `Question ${current + 1}`;
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('progressText').textContent = `Question ${current + 1} of ${questions.length}`;
+  const pct = Math.round((current / questions.length) * 100);
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressBar').style.width = pct + '%';
+
+  const list = document.getElementById('optionsList');
+  list.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (answers[current] === i ? ' selected' : '');
+    btn.innerHTML = `<span class="opt-dot"></span><span>${opt.label}</span>`;
+    btn.onclick = () => selectOption(i);
+    list.appendChild(btn);
+  });
+
+  document.getElementById('btnBack').disabled = current === 0;
+  document.getElementById('btnNext').disabled = answers[current] === null;
+  document.getElementById('btnNext').textContent = current === questions.length - 1 ? 'See my results →' : 'Next →';
+}
+
+function selectOption(i) {
+  answers[current] = i;
+  render();
+}
+
+function goNext() {
+  if (answers[current] === null) return;
+  if (current === questions.length - 1) {
+    showResult();
+  } else {
+    current++;
+    render();
+  }
+}
+
+function goBack() {
+  if (current > 0) { current--; render(); }
+}
+
+function showResult() {
+  const total = answers.reduce((sum, a, i) => sum + questions[i].options[a].score, 0);
+  const r = results.find(r => total >= r.min && total <= r.max) || results[results.length - 1];
+
+  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('questionArea').style.display = 'none';
+  document.getElementById('navArea').style.display = 'none';
+
+  const ra = document.getElementById('resultArea');
+  ra.style.display = 'block';
+
+  const icon = document.getElementById('resultIcon');
+  icon.textContent = r.icon;
+  icon.style.background = r.iconBg;
+  icon.style.color = r.iconColor;
+
+  const lbl = document.getElementById('resultLabel');
+  lbl.textContent = r.label;
+  lbl.style.color = r.labelColor;
+
+  document.getElementById('resultTitle').textContent = r.title;
+  document.getElementById('resultDesc').textContent = r.desc;
+
+  const fill = document.getElementById('scoreFill');
+  fill.style.background = r.barColor;
+  fill.style.width = '0%';
+  setTimeout(() => { fill.style.width = r.barPct; }, 100);
+}
+
+function retake() {
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+  document.getElementById('progressWrap').style.display = '';
+  document.getElementById('questionArea').style.display = '';
+  document.getElementById('navArea').style.display = '';
+  document.getElementById('resultArea').style.display = 'none';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
