@@ -83,6 +83,29 @@
     transition: opacity 0.2s, transform 0.2s;
     text-decoration: none;
   }
+
+  /* NAV BUTTON GROUP */
+  .nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+/* QUIZ BUTTON (outline style) */
+  .nav-quiz{
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border: 1px solid var(--green-mid);
+    color: var(--green-mid);
+    background: transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-quiz:hover{
+    background: rgba(61,186,108,0.1);
+  }
   .nav-register:hover { opacity: 0.88; transform: translateY(-1px); }
 
   /* ── HERO ── */
@@ -96,10 +119,11 @@
 
   /* HERO LAYOUT */
 .hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
 
 /* LEFT SIDE (existing text) */
 .hero-content {
@@ -207,7 +231,9 @@
     flex-wrap: wrap;
     animation: fadeUp 0.7s 0.3s ease both;
   }
-
+  .hero-actions a{
+    text-align: center;
+  }
   
   .btn-primary {
   background: var(--leaf-gradient);
@@ -765,17 +791,74 @@
 /* MOBILE RESPONSIVE */
 @media (max-width: 768px){
 
+  /* NAV */
+  nav{
+    padding: 12px 16px;
+  }
+
+  .nav-logo-text .brand{
+    font-size: 1rem;
+  }
+
+  .nav-register{
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
+
+  /* HERO */
   .hero{
     flex-direction: column;
-    text-align: left;
-    padding: 40px 20px;
+    align-items: flex-start;
+    justify-content: flex-start; /* 🔥 FIX */
+    padding: 90px 20px 40px;
     gap: 30px;
   }
 
+  .hero-content{
+    width: 100%;
+  }
+
+  .hero h1{
+    font-size: 34px;
+    line-height: 1.25;
+  }
+
+  .hero-sub{
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
+  /* BUTTONS */
+  .hero-actions{
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .hero-actions a{
+    text-align: center;
+  }
+
+  .btn-primary{
+    width: 100%;
+    min-width: 220px;
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  .btn-ghost{
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* VIDEO */
   .hero-video{
     width: 100%;
-    height: 220px;
+    height: 200px;
     margin: 0;
+    border-radius: 14px;
   }
 
   .hero-video iframe{
@@ -783,25 +866,20 @@
     height: 100%;
   }
 
-  .hero h1{
-    font-size: 38px;
-    line-height: 1.2;
+  .nav-actions{
+  gap: 8px;
   }
 
-  .hero p{
-    font-size: 15px;
+  .nav-quiz{
+    padding: 6px 12px;
+    font-size: 0.7rem;
   }
 
-  .hero-buttons{
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
+  .nav-register{
+    padding: 6px 14px;
+    font-size: 0.7rem;
   }
 
-  .hero-buttons a{
-    width: 100%;
-    text-align: center;
-  }
 }
 </style>
 </head>
@@ -816,11 +894,8 @@
     </div>
     </a>
      <div class="nav-actions">
-    <a href="quiz.html" class="nav-quiz">Take Quiz</a>
-
-   <a href="https://forms.gle/Rzusw9EZgvXhvq6D9" target="_blank" class="nav-register">
-   Register Now
-   </a>
+        <a href="quiz.html" class="nav-quiz">Take Quiz</a>
+        <a href="https://forms.gle/Rzusw9EZgvXhvq6D9" target="_blank" class="nav-register">Register Now</a>
      </div>
 </nav>
 
@@ -857,7 +932,8 @@
   <!-- RIGHT SIDE YOUTUBE VIDEO -->
   <div class="hero-video">
     <iframe 
-      src="https://www.youtube.com/embed/9Ov7OYyxato"
+      src="https://www.youtube.com/embed/9Ov7OYyxato?autoplay=1&mute=1&rel=0&playsinline=1"
+      allow="autoplay; encrypted-media"
       title="Calm Lab Intro"
       allowfullscreen>
     </iframe>
