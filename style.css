@@ -1,0 +1,156 @@
+/* ================= GLOBAL ================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui;
+}
+
+:root {
+  --blue: #1E5AA6;
+  --blue-dark: #0F3D75;
+  --orange: #F7941D;
+  --text: #2c2c2c;
+
+  --green-mid: #3dba6c;
+  --leaf-gradient: linear-gradient(90deg, #3dba6c, #1fa8a0);
+}
+
+body {
+  background: #0f172a;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-quiz,
+.nav-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1.5px solid transparent;
+}
+
+/* outline button */
+.nav-quiz {
+  border: 1.5px solid var(--green-mid);
+  color: var(--green-mid);
+  background: transparent;
+  margin-top: 1px;
+}
+
+/* filled button */
+.nav-register {
+  background: var(--leaf-gradient);
+  color: #fff;
+  padding: 0 22px;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+  padding: 60px 48px;
+  max-width: 700px;
+}
+
+.tagline {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(61,186,108,0.1);
+  color: var(--green-mid);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.highlight {
+  color: #1fa8a0;
+  font-style: italic;
+}
+
+.subtext {
+  margin-top: 20px;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.primary-btn {
+  background: var(--leaf-gradient);
+  border: none;
+  padding: 16px;
+  border-radius: 999px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 16px;
+  border-radius: 999px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 16px 20px;
+  }
+
+  .hero {
+    padding: 40px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+}

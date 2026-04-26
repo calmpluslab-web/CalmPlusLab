@@ -1,0 +1,215 @@
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --green-light: #7bc47f;
+  --green-mid:   #3dba6c;
+  --green-dark:  #2f6f4f;
+  --cream:       #faf8f4;
+  --text-dark:   #1a2420;
+  --text-body:   #4a5a52;
+  --border:      #e6efe9;
+  --gradient:    linear-gradient(135deg, #7bc47f, #3dba6c);
+  --shadow-card: 0 15px 40px rgba(61,186,108,0.08);
+  --shadow-cta:  0 20px 60px rgba(61,186,108,0.20);
+  --radius:      20px;
+}
+
+/* ── Reset & Base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.header {
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border);
+  background: var(--cream);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--green-mid);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: gap 0.25s ease;
+}
+
+.back-link:hover { gap: 16px; }
+
+.arrow-circle {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: var(--gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(61,186,108,0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.arrow-circle svg { width: 18px; height: 18px; display: block; }
+
+.back-link:hover .arrow-circle {
+  transform: translateX(-4px);
+  box-shadow: 0 10px 25px rgba(61,186,108,0.35);
+}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero {
+  padding: 80px 40px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero h1 span { color: var(--green-mid); }
+
+.hero p {
+  color: var(--text-body);
+  max-width: 600px;
+  line-height: 1.8;
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+}
+
+/* ── Section Wrapper ───────────────────────────────────────── */
+.section {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 0 40px;
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 30px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 55px rgba(61,186,108,0.13);
+}
+
+.card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  margin-bottom: 12px;
+  color: var(--green-dark);
+}
+
+.card p {
+  color: var(--text-body);
+  line-height: 1.8;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  margin-bottom: 10px;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+/* ── Lists ─────────────────────────────────────────────────── */
+ul {
+  margin: 10px 0 15px 20px;
+  color: var(--text-body);
+}
+
+li {
+  margin-bottom: 6px;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  line-height: 1.6;
+}
+
+/* ── Links ─────────────────────────────────────────────────── */
+.link {
+  color: var(--green-mid);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+.link:hover { opacity: 0.75; }
+
+/* ── CTA Highlight ─────────────────────────────────────────── */
+.highlight {
+  max-width: 900px;
+  margin: 20px auto 60px;
+  padding: 40px;
+  border-radius: var(--radius);
+  background: var(--gradient);
+  color: #fff;
+  text-align: center;
+  box-shadow: var(--shadow-cta);
+}
+
+.highlight p {
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  line-height: 1.8;
+}
+
+/* ── Fade-in animation ─────────────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header { padding: 14px 20px; }
+
+  .hero {
+    padding: 40px 20px 28px;
+  }
+
+  .section {
+    padding: 0 20px;
+  }
+
+  .card {
+    padding: 22px 20px;
+  }
+
+  .highlight {
+    margin: 10px 20px 40px;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .arrow-circle { width: 36px; height: 36px; }
+  .arrow-circle svg { width: 16px; height: 16px; }
+
+  .back-link { font-size: 0.9rem; gap: 10px; }
+
+  .card { padding: 18px 16px; border-radius: 14px; }
+
+  .highlight { border-radius: 14px; padding: 22px 16px; }
+}
