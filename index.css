@@ -584,17 +584,100 @@ nav {
   .founder { padding: 60px 20px; }
 }
 
+
+/* ════════════════════════════════════════
+   FLOATING SOCIAL ICONS — horizontal 3D bounce
+════════════════════════════════════════ */
+@keyframes float-bounce {
+  0%   { transform: translateY(0px)    scale(1)    rotateX(0deg); }
+  25%  { transform: translateY(-12px)  scale(1.08) rotateX(8deg); }
+  50%  { transform: translateY(-18px)  scale(1.12) rotateX(0deg); }
+  75%  { transform: translateY(-8px)   scale(1.05) rotateX(-4deg); }
+  100% { transform: translateY(0px)    scale(1)    rotateX(0deg); }
+}
+
+@keyframes shadow-pulse {
+  0%,100% { transform: scaleX(1);   opacity: 0.35; }
+  50%      { transform: scaleX(0.6); opacity: 0.15; }
+}
+
+.float-social {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  align-items: flex-end;
+  perspective: 400px;
+}
+
+.float-icon-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.float-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.22),
+    0 2px 6px rgba(0,0,0,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  animation: float-bounce 2s ease-in-out infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.float-icon svg {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+/* stagger each icon */
+.float-icon-wrap:nth-child(1) .float-icon { animation-delay: 0s; }
+.float-icon-wrap:nth-child(2) .float-icon { animation-delay: 0.3s; }
+.float-icon-wrap:nth-child(3) .float-icon { animation-delay: 0.6s; }
+
+/* ground shadow blob */
+.float-shadow {
+  width: 36px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  filter: blur(4px);
+  animation: shadow-pulse 2s ease-in-out infinite;
+}
+.float-icon-wrap:nth-child(1) .float-shadow { animation-delay: 0s; }
+.float-icon-wrap:nth-child(2) .float-shadow { animation-delay: 0.3s; }
+.float-icon-wrap:nth-child(3) .float-shadow { animation-delay: 0.6s; }
+
+/* pause on hover for interaction */
+.float-icon:hover {
+  animation-play-state: paused;
+  transform: translateY(-22px) scale(1.18) rotateX(0deg);
+  box-shadow:
+    0 22px 40px rgba(0,0,0,0.26),
+    0 4px 10px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.float-yt { background: linear-gradient(135deg, #ff4e4e, #FF0000); color: #fff; }
+.float-li { background: linear-gradient(135deg, #2f8de8, #0A66C2); color: #fff; }
+.float-wa { background: linear-gradient(135deg, #4be87a, #25D366); color: #fff; }
+
 @media (max-width: 480px) {
-  nav { padding: 0 12px; height: 52px; }
-  .brand { font-size: 1rem; }
-  .nav-logo-img { width: 22px; height: 22px; }
-  .nav-quiz { padding: 5px 10px; font-size: 0.74rem; }
-  .nav-register { padding: 6px 12px; font-size: 0.74rem; }
-  .hero-actions { flex-direction: column; width: 100%; }
-  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
-  .hero-video { border-radius: 12px; }
-  .card { padding: 20px 16px; }
-  .param-card { padding: 18px 16px; }
-  .testimonial-card { padding: 20px 16px; }
-  .register-btn { width: 100%; justify-content: center; padding: 14px 24px; }
+  .float-social  { bottom: 16px; right: 12px; gap: 12px; }
+  .float-icon    { width: 44px; height: 44px; }
+  .float-icon svg { width: 20px; height: 20px; }
+  .float-shadow  { width: 28px; height: 6px; }
 }
